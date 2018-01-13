@@ -1,6 +1,6 @@
 ## CoinHive Stratum Proxy
 
-<img width="1356" alt="pm2" src="https://user-images.githubusercontent.com/2781777/33243231-c162d55c-d2c0-11e7-9408-c3fb7fb699d0.png">
+![coin-hive-stratum](https://user-images.githubusercontent.com/2781777/33243231-c162d55c-d2c0-11e7-9408-c3fb7fb699d0.png)
 
 This proxy allows you to use CoinHive's JavaScript miner on a custom stratum pool.
 
