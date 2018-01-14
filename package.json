@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cazala/coin-hive-stratum.git"
+    "url": "git+https://gitlab.com/cazala/coin-hive-stratum.git"
   },
   "keywords": ["coinhive", "stratum", "proxy"],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cazala/coin-hive-stratum/issues"
+    "url": "https://gitlab.com/cazala/coin-hive-stratum/issues"
   },
-  "homepage": "https://github.com/cazala/coin-hive-stratum#readme",
+  "homepage": "https://gitlab.com/cazala/coin-hive-stratum",
   "dependencies": {
     "@types/node": "^8.0.53",
     "@types/ws": "^3.2.0",
