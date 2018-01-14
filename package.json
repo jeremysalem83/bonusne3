@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/cazala/coin-hive-stratum.git"
+    "url": "https://gitlab.com/cazala/coin-hive-stratum"
   },
   "keywords": [
     "coinhive",
