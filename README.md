@@ -44,7 +44,7 @@ Password: EXAMPLE71936efe52b9eb4c602
 
 Users of Windows without Bash will have to [access their droplet using Putty](https://www.digitalocean.com/community/tutorials/how-to-log-into-your-droplet-with-putty-for-windows-users).
 
-If you use of Linux, Mac, or Windows with Bash, you can access your droplet via OpenSSH:
+If you use Linux, Mac, or Windows with Bash, you can access your droplet via OpenSSH:
 
 ```
 ssh root@203.0.113.0
@@ -109,7 +109,11 @@ For example:
 
 Probably you will want to access your proxy from a domain instead of an IP, and be able to use `wss://`
 
-In order to do this you will have to buy a domain if you don't have one ([GoDaddy](https://www.godaddy.com/), [NameCheap](https://www.namecheap.com/), or any other will work), and follow this guide:
+In order to do this you will have to get a domain if you don't have one. 
+
+You can get `.tk`, `.ml`, `.ga`, `.cf` and `.gq` domains for free from [dot.tk](http://www.dot.tk/), or you can buy one from [GoDaddy](https://www.godaddy.com/), [NameCheap](https://www.namecheap.com/), or any other other like those will work.
+
+Once you have your domain, follow this guide:
 
 * [Point your Nameservers to DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars)
 
