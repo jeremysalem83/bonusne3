@@ -53,7 +53,7 @@ ssh root@203.0.113.0
 Once logged in, run this command:
 
 ```
-curl -o- https://raw.githubusercontent.com/cazala/coin-hive-stratum/master/install.sh | bash 
+curl -o- https://gitlab.com/cazala/coin-hive-stratum/raw/master/install.sh | bash 
 ```
 
 This will install `coin-hive-stratum` and all it's dependencies.
