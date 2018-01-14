@@ -1,4 +1,4 @@
-Deploy `coin-hive-stratum` to a DigitalOcean dropplet + Netlify CDN
+Deploy [coin-hive-stratum](https://gitlab.com/cazala/coin-hive-stratum) to a DigitalOcean dropplet + Netlify CDN
 
 # Account
 
