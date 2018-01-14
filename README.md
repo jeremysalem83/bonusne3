@@ -1,52 +1,198 @@
-Deploy `coin-hive-stratum` proxy **for free** to `now.sh` + `GitHub Pages` and avoid AdBlock.
+Deploy `coin-hive-stratum` to a DigitalOcean dropplet + Netlify CDN
 
-## Server
+# Account
 
-Just deploy [this repo](https://deploy.now.sh/?repo=https://github.com/cazala/coin-hive-stratum) to `now.sh`
+Create an account at [DigitalOcean](https://m.do.co/c/f0a21da7be52).
 
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/cazala/coin-hive-stratum)
+If you sign up with [this link](https://m.do.co/c/f0a21da7be52) you will get $10 on DigitalOcean credit for free.
 
-This will deploy a proxy instance to your `now.sh` account, and it will give you a url like this: `https://coin-hive-stratum-zmuahmjuur.now.sh`.
+You can also enter a promo code:
 
-Finally, change the name of the instance. To do so, install `now` if you don't have it yet:
+* If you have a student email (ending with .edu) you can get $50 on DigitalOcean credit for free with a [GitHub Student Pack](https://education.github.com/pack). 
+
+* If you don't have a student email, you can use the promo code LOWENDBOX to get $15 for free. 
+
+* If the one above doesn't work, you can use DROPLET10 and get $10 for free. 
+
+# Droplet
+
+After logging in, go to your droplets and create a new one:
+￼
+
+![33801081-01a9a1d2-dd2e-11e7-9929-abe4c4040f6b](/uploads/a6a9e8b76cf9a6d0d27d2f67b4bcf3e3/33801081-01a9a1d2-dd2e-11e7-9929-abe4c4040f6b.png)
+
+Choose an Ubuntu image:
+
+![33801080-01883254-dd2e-11e7-81b2-3e00a4d0d07f](/uploads/644fa6ced095d3b993adb5a31df239bb/33801080-01883254-dd2e-11e7-81b2-3e00a4d0d07f.png)
+￼
+Choose the size:
+￼
+![33801082-01c9cce6-dd2e-11e7-86b3-42ab26582f4c](/uploads/e840b11c5beb5fc0e91549557ffe82f4/33801082-01c9cce6-dd2e-11e7-86b3-42ab26582f4c.png)
+
+Choose a region:
+￼
+![33801090-41e6581c-dd2e-11e7-84e0-efa6ffbd9406](/uploads/1d3b271daabe643d497a82586cc2fb53/33801090-41e6581c-dd2e-11e7-84e0-efa6ffbd9406.png)
+
+After creating your droplet you will receive an email with your droplet's credentials:
 
 ```
-npm i -g now
+Droplet Name: ubuntu-512mb-nyc3-01
+IP Address: 203.0.113.0
+Username: root
+Password: EXAMPLE71936efe52b9eb4c602
 ```
 
-Login with the same account where you deployed your proxy:
+Users of Windows without Bash will have to [access their droplet using Putty](https://www.digitalocean.com/community/tutorials/how-to-log-into-your-droplet-with-putty-for-windows-users).
+
+If you use of Linux, Mac, or Windows with Bash, you can access your droplet via OpenSSH:
 
 ```
-now login
+ssh root@203.0.113.0
 ```
 
-And rename your proxy like this:
+Once logged in, run this command:
 
 ```
-now alias coin-hive-stratum-zmuahmjuur.now.sh my-proxy.now.sh
+curl -o- https://raw.githubusercontent.com/cazala/coin-hive-stratum/master/install.sh | bash 
 ```
 
-Now your proxy is accessible from `wss://my-proxy.now.sh`.
+This will install `coin-hive-stratum` and all it's dependencies.
 
-This is **YOUR-SERVER-URL**.
+Now run this to activate NVM:
 
-## Assets
+```
+source ~/.bashrc
+```
 
-First, fork [this repo](https://github.com/cazala/coin-hive-stratum).
+To configure your proxy, edit the file proxy.js (by default it's pointing to pool.supportxmr.com:3333):
 
-![fork](https://user-images.githubusercontent.com/2781777/33270099-a6af10da-d361-11e7-91ec-060d447fd1fb.gif)
+```
+vi proxy.js
+```
 
-Now, change its name to `my-proxy` (Settings > Rename).
+Now you can start your proxy using pm2:
 
-<img width="359" alt="rename" src="https://user-images.githubusercontent.com/2781777/33243283-e1407e32-d2c1-11e7-8726-08b6728c0780.png">
+```
+pm2 start proxy.js --name=proxy --log-date-format="YYYY-MM-DD HH:mm"
+```
 
-This will create a github page under you github's account with all the required static assets.
+Run this to monitor your proxy:
 
-After that you will be able to access the miner via `https://<YOUR-GITHUB-USERNAME>.github.io/my-proxy/m.js`
+```
+pm2 monit
+```
 
-This is your **YOUR-CLIENT-URL**.
+And this to stop it:
 
-## Usage
+```
+pm2 stop proxy
+```
+
+Now you proxy is available via `ws://X.X.X.X` (where `X.X.X.X` is your droplet's IP) !
+
+For example:
+
+```html
+<script src="https://coinhive.com/lib/coinhive.min.js"></script>
+<script>
+  // Configure CoinHive to point to your proxy
+  CoinHive.CONFIG.WEBSOCKET_SHARDS = [["ws://203.0.113.0"]];
+
+  // Start miner
+  var miner = CoinHive.Anonymous('your-monero-address');
+  miner.start();
+
+</script>
+```
+
+# Custom Domain or Subdomain and SSL
+
+Probably you will want to access your proxy from a domain instead of an IP, and be able to use `wss://`
+
+In order to do this you will have to buy a domain if you don't have one ([GoDaddy](https://www.godaddy.com/), [NameCheap](https://www.namecheap.com/), or any other will work), and follow this guide:
+
+* [Point your Nameservers to DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars)
+
+If you already have a domain, and you are using Cloudflare (if you don't, you should) and you want to use your proxy under a subdomain, follow this guide:
+
+* [Cloudflare pointing subdomains to different droplets](https://www.digitalocean.com/community/questions/cloudflare-pointing-subdomains-to-a-different-droplets)
+
+To generate your SSL certificates for your domain or subdomain follow this guide:
+
+* [Use Certbot to retrieve Let's Encrypt SSL certificates](https://www.digitalocean.com/community/tutorials/how-to-use-certbot-standalone-mode-to-retrieve-let-s-encrypt-ssl-certificates)
+
+After you have your domain or subdomain setup and your SSL certificates, just edit the file `proxy_secure.js` and add your domain in the line `const domain = "yourdomain.com"`:
+
+```
+vi proxy_secure.js
+```
+
+It should look like this:
+
+```
+const Proxy = require("coin-hive-stratum");
+const domain = "yourdomain.com"
+const proxy = new Proxy({
+  host: "pool.supportxmr.com",
+  port: 3333,
+  key: require("fs").readFileSync("/etc/letsencrypt/live/" + domain + "/privkey.pem"),
+  cert: require("fs").readFileSync("/etc/letsencrypt/live/" + domain + "/fullchain.pem"),
+});
+proxy.listen(443);
+```
+
+And run your proxy using this instead:
+
+```
+pm2 start proxy_secure.js --name=proxy --log-date-format="YYYY-MM-DD HH:mm"
+```
+
+Now your proxy will be accesible from your domain and via `wss://`!
+
+For example:
+
+```html
+<script src="https://coinhive.com/lib/coinhive.min.js"></script>
+<script>
+  // Configure CoinHive to point to your proxy
+  CoinHive.CONFIG.WEBSOCKET_SHARDS = [["wss://my-awesome-proxy.com"]];
+
+  // Start miner
+  var miner = CoinHive.Anonymous('your-monero-address');
+  miner.start();
+
+</script>
+```
+
+# Avoid AdBlock
+
+You may also want to host your own assets instead of using CoinHive's to avoid AdBlock.
+
+In order to do that, fork [this repo](https://gitlab.com/cazala/coin-hive-stratum).
+
+![fork](/uploads/095f91e51a26af9cb29319cff3139eb6/fork.gif)
+
+---
+￼
+Now login to [Netlify](https://netlify.com) and follow this instruction:
+
+* Click on `New site from Git`
+
+* Connect to Gitlab
+
+* Select the repo you just forked: `coin-hive-stratum`
+
+* Select the branch `assets`
+
+* Deploy!
+
+![netlify](/uploads/bba96ae08beae3c0e1684e0b1d18ab72/netlify.gif)
+
+This will give you a url like this:
+
+```
+https://priceless-wright-067e2f.netlify.com
+```
 
 Now instead of using CoinHive's miner:
 
@@ -57,21 +203,21 @@ Now instead of using CoinHive's miner:
 You should use your miner like this:
 
 ```html
-<script src="YOUR-CLIENT-URL?proxy=YOUR-SERVER-URL?pool=HOST:PORT"></script>
+<script src="https://priceless-wright-067e2f.netlify.com?proxy=YOUR-PROXY-URL"></script>
 ```
 
 This is an example of how it should look like:
 
 ```html
-<script src="https://cazala.github.io/my-proxy/m.js?proxy=wss://my-proxy.now.sh?pool=pool.supportxmr.com:3333"></script>
+<script src="https://priceless-wright-067e2f.netlify.com?proxy=wss://my-awesome-proxy.com"></script>
 ```
 
-Also, instead of using the `CoinHive` global variable use `CH` (this is to avoid AdBlock), ie:
+Also, instead of using the CoinHive global variable use CH (this is to avoid AdBlock), ie:
 
 ```html
-<script src="https://cazala.github.io/my-proxy/m.js?proxy=wss://my-proxy.now.sh?pool=pool.supportxmr.com:3333"></script>
+<script src="https://priceless-wright-067e2f.netlify.com?proxy=wss://my-awesome-proxy.com"></script>
 <script>
-  var miner = CH.Anonymous('SITE_KEY');
+  var miner = CH.Anonymous('MONERO_WALLET_ADDRESS');
   miner.start();
 </script>
 ```
