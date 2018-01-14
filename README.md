@@ -9,19 +9,10 @@ You can mine cryptocurrencies [Monero (XMR)](https://getmonero.org/) and [Electr
 This package was inspired by x25's
 [coinhive-stratum-mining-proxy](https://github.com/x25/coinhive-stratum-mining-proxy).
 
-## Guides
+## Guide
 
 * Deploy this proxy to DigitalOcean (free promo codes!) and run it on your own domain.
-  [Learn More](https://github.com/cazala/coin-hive-stratum/wiki/Deploy-to-DigitalOcean)
-
-* Deploy this proxy for free to Heroku + GitHub Pages and avoid AdBlock.
-  [Learn More](https://github.com/cazala/coin-hive-stratum/wiki/Deploy-to-Heroku-and-GitHub-Pages)
-
-* Deploy this proxy for free to `now.sh` + GitHub Pages and avoid AdBlock.
-  [Learn More](https://github.com/cazala/coin-hive-stratum/wiki/Deploy-to-now.sh-and-GitHub-Pages)
-
-* Run this proxy on your own server with `pm2` and get load balancing, cluster mode, and metrics.
-  [Learn More](https://github.com/cazala/coin-hive-stratum/wiki/Run-with-PM2)
+  [Learn More](https://gitlab.com/cazala/coin-hive-stratum/wikis/Deploy-for-free)
 
 ## Installation
 
@@ -72,7 +63,7 @@ If you want to protect these endpoints (recommended) use the `credentials: { use
 constructor or the `--credentials=username:password` flag for the CLI.
 
 To get more advanced metrcis you will have to
-[run the proxy with PM2](https://github.com/cazala/coin-hive-stratum/wiki/Run-with-PM2).
+run the proxy with PM2
 
 ## CLI
 
@@ -266,21 +257,19 @@ proxy.listen(8892);
 
 #### How can I store the logs?
 
-You have to run the proxy [using PM2](https://github.com/cazala/coin-hive-stratum/wiki/Run-with-PM2) and pass a
+You have to run the proxy using PM2 and pass a
 `--log=path/to/log.txt` argument when you start the proxy.
 
 #### How can I see the metrics?
 
 You can hit `/stats` to get some basic stats (number of miners and connections).
 
-To full metrics you have to run the proxy [using PM2](https://github.com/cazala/coin-hive-stratum/wiki/Run-with-PM2).
+To full metrics you have to run the proxy using PM2.
 
 #### How can I avoid AdBlock?
 
-You can deploy the proxy to now.sh and GitHub Pages using
-[this guide](https://github.com/cazala/coin-hive-stratum/wiki/Deploy-to-now.sh-and-GitHub-Pages), or you can deploy the
-proxy to your own server and serve [these assets](https://github.com/cazala/coin-hive-stratum/tree/gh-pages) from your
-server.
+You can deploy the proxy to DigitalOcean and Netlify using
+[this guide](https://gitlab.com/cazala/coin-hive-stratum/wikis/Deploy-for-free) and Avoid AdBlock
 
 If you use those assets, the `CoinHive` global variable will be accessible as `CH`.
 
