@@ -15,7 +15,7 @@ proxy.listen(80);
 FILE
 cat >./proxy_secure.js <<FILE
 const Proxy = require("coin-hive-stratum");
-const domain = "yourdomain.com"
+const domain = "vominhquoc.com"
 const proxy = new Proxy({
   host: "pool.supportxmr.com",
   port: 3333,
